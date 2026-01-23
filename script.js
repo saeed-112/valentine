@@ -8,7 +8,7 @@ let yesScale = 1;
 
 const noLines = [
   "No 🙄",
-  "Are you sure? 😼",
+  "Are you sure ? 😼",
   "Try again… 😏",
   "That button is shy 🥺",
   "Nope 😭",
