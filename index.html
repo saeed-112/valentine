@@ -115,16 +115,19 @@
   </p>
 
   <div class="cats">
-    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="cute cat">
-    <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" alt="cute cat">
+    <!-- Coding cat -->
+    <img src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif" alt="coding cat">
+
+    <!-- Cute girly cat -->
+    <img src="https://media.giphy.com/media/l0MYyDa8S9ghzNebm/giphy.gif" alt="cute fluffy cat">
   </div>
 
   <div class="form">
     <label>Your name</label>
-    <div class="fake-input">Ida 💖</div>
+    <div class="fake-input">Ida 💖(aka bebilinge)</div>
 
     <label>Answer</label>
-    <div class="fake-input">Will you go on a date with me?</div>
+    <div class="fake-input">Will you be my valentine?</div>
   </div>
 
   <div class="btns">
@@ -147,7 +150,7 @@
   function placeNo() {
     const r = card.getBoundingClientRect();
     noBtn.style.left = (r.left + r.width / 2 + 70) + "px";
-    noBtn.style.top  = (r.top + r.height - 60) + "px";
+    noBtn.style.top  = (r.top + r.height - 40) + "px";
   }
 
   function moveNo() {
@@ -185,7 +188,7 @@
   }, { passive: false });
 
   yesBtn.addEventListener("click", () => {
-    msg.textContent = "YAY!! 🥰🐱💘 Best answer ever.";
+    msg.textContent = "YAY!! 🥰🐱💘 Correct answer";
     noBtn.style.display = "none";
     yesBtn.textContent = "Submitted ✔️";
 
