@@ -25,16 +25,8 @@
       text-align: center;
     }
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 26px;
-    }
-
-    p {
-      margin: 0 0 16px;
-      font-size: 16px;
-      opacity: 0.85;
-    }
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    p  { margin: 0 0 16px; font-size: 16px; opacity: 0.85; }
 
     .cats {
       display: grid;
@@ -55,13 +47,10 @@
       text-align: left;
     }
 
-    .form label {
-      font-weight: 600;
-    }
+    .form label { font-weight: 600; }
 
     .fake-input {
-      margin-top: 6px;
-      margin-bottom: 12px;
+      margin: 6px 0 12px;
       padding: 10px;
       border-radius: 12px;
       background: #f3f4f6;
@@ -71,7 +60,7 @@
     .btns {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 14px;
       margin-top: 10px;
     }
 
@@ -81,22 +70,20 @@
       border-radius: 999px;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.1s ease;
-    }
-
-    button:active {
-      transform: scale(0.97);
+      transition: transform 0.15s ease;
     }
 
     #yes {
       background: #22c55e;
       color: white;
+      transform: scale(1);
     }
 
     #no {
       background: #ef4444;
       color: white;
       position: absolute;
+      transform: scale(1);
     }
 
     #msg {
@@ -123,11 +110,12 @@
 
   <div class="card" id="card">
     <h1>💘 Hi Ida</h1>
-    <p>I would like you to be my date on Valentine’s Day.<br>Please fill in the form below 🥺👉👈</p>
+    <p>I would like you to be my date on Valentine’s Day.<br>
+       Please fill in the form below 🥺👉👈</p>
 
     <div class="cats">
-      <img src="https://placekitten.com/300/220" alt="cute cat">
-      <img src="https://placekitten.com/301/220" alt="cute cat">
+      <img src="https://placekitten.com/300/220">
+      <img src="https://placekitten.com/301/220">
     </div>
 
     <div class="form">
@@ -146,60 +134,80 @@
     <div id="msg"></div>
   </div>
 
-  <script>
-    const card = document.getElementById('card');
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const msg = document.getElementById('msg');
+<script>
+  const card = document.getElementById("card");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const msg = document.getElementById("msg");
 
-    function placeNoNearCard() {
-      const r = card.getBoundingClientRect();
-      noBtn.style.left = (r.left + r.width / 2 + 70) + "px";
-      noBtn.style.top = (r.top + r.height - 60) + "px";
+  let noScale = 1;
+  let yesScale = 1;
+
+  function placeNo() {
+    const r = card.getBoundingClientRect();
+    noBtn.style.left = (r.left + r.width / 2 + 70) + "px";
+    noBtn.style.top  = (r.top + r.height - 60) + "px";
+  }
+
+  function moveNo() {
+    const padding = 10;
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+  }
+
+  function intimidateNo() {
+    noScale = Math.max(0.4, noScale - 0.12);
+    yesScale = Math.min(1.6, yesScale + 0.08);
+
+    noBtn.style.transform = `scale(${noScale})`;
+    yesBtn.style.transform = `scale(${yesScale})`;
+  }
+
+  // Mouse gets close → psychological pressure
+  document.addEventListener("mousemove", (e) => {
+    const r = noBtn.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < 120) intimidateNo();
+  });
+
+  // Actually tries to hover / tap → panic
+  noBtn.addEventListener("mouseenter", () => {
+    intimidateNo();
+    moveNo();
+  });
+
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    intimidateNo();
+    moveNo();
+  }, { passive: false });
+
+  yesBtn.addEventListener("click", () => {
+    msg.textContent = "YAY!! 🥰🐱💘 Best answer ever.";
+    noBtn.style.display = "none";
+    yesBtn.textContent = "Submitted ✔️";
+
+    for (let i = 0; i < 14; i++) {
+      setTimeout(() => {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = "💖";
+        h.style.left = (window.innerWidth / 2 + Math.random() * 120 - 60) + "px";
+        h.style.top  = (window.innerHeight / 2 + Math.random() * 80 - 40) + "px";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 1200);
+      }, i * 40);
     }
+  });
 
-    function moveNo() {
-      const padding = 10;
-      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
-      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    function heartExplosion(x, y) {
-      const h = document.createElement("div");
-      h.className = "heart";
-      h.textContent = "💖";
-      h.style.left = x + "px";
-      h.style.top = y + "px";
-      document.body.appendChild(h);
-      setTimeout(() => h.remove(), 1200);
-    }
-
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("touchstart", e => {
-      e.preventDefault();
-      moveNo();
-    }, { passive: false });
-
-    yesBtn.addEventListener("click", () => {
-      msg.textContent = "YAY!! 🥰🐱💘 Best answer ever.";
-      noBtn.style.display = "none";
-      yesBtn.textContent = "Submitted ✔️";
-
-      for (let i = 0; i < 14; i++) {
-        setTimeout(() => {
-          heartExplosion(
-            window.innerWidth / 2 + (Math.random() * 120 - 60),
-            window.innerHeight / 2 + (Math.random() * 80 - 40)
-          );
-        }, i * 40);
-      }
-    });
-
-    window.addEventListener("resize", placeNoNearCard);
-    placeNoNearCard();
-  </script>
+  window.addEventListener("resize", placeNo);
+  placeNo();
+</script>
 
 </body>
 </html>
