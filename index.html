@@ -1,65 +1,146 @@
 <!doctype html>
-<html lang="sv">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Valentine? 💘</title>
+  <title>Ida 💘 Valentine?</title>
+
   <style>
-    :root { --bg1:#ffdde1; --bg2:#ee9ca7; }
     body {
-      margin: 0; height: 100vh; display: grid; place-items: center;
+      margin: 0;
+      height: 100vh;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      background: linear-gradient(135deg, #ffd6e0, #fff1c1);
+      display: grid;
+      place-items: center;
       overflow: hidden;
     }
+
     .card {
-      background: rgba(255,255,255,0.9);
-      padding: 28px 26px;
-      border-radius: 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      background: white;
+      padding: 26px;
+      border-radius: 24px;
+      width: min(440px, 92vw);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.2);
       text-align: center;
-      width: min(420px, 92vw);
     }
-    h1 { margin: 0 0 10px; font-size: 28px; }
-    p { margin: 0 0 18px; font-size: 16px; opacity: 0.85; }
-    .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    p {
+      margin: 0 0 16px;
+      font-size: 16px;
+      opacity: 0.85;
+    }
+
+    .cats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .cats img {
+      width: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .form {
+      margin-bottom: 16px;
+      font-size: 15px;
+      text-align: left;
+    }
+
+    .form label {
+      font-weight: 600;
+    }
+
+    .fake-input {
+      margin-top: 6px;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      font-size: 14px;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
     button {
-      border: 0;
+      border: none;
       padding: 12px 18px;
       border-radius: 999px;
       font-size: 16px;
       cursor: pointer;
-      transition: transform 0.08s ease;
+      transition: transform 0.1s ease;
     }
-    button:active { transform: scale(0.98); }
-    #yes { background: #22c55e; color: white; }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    #yes {
+      background: #22c55e;
+      color: white;
+    }
+
     #no {
-      background: #ef4444; color: white;
-      position: absolute; /* så vi kan flytta runt den */
+      background: #ef4444;
+      color: white;
+      position: absolute;
     }
-    #msg { margin-top: 16px; font-size: 18px; font-weight: 600; }
+
+    #msg {
+      margin-top: 18px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
     .heart {
       position: fixed;
-      font-size: 20px;
+      font-size: 22px;
       pointer-events: none;
-      opacity: 0.85;
       animation: floatUp 1.2s ease-out forwards;
     }
+
     @keyframes floatUp {
       from { transform: translateY(0) scale(1); opacity: 0.9; }
-      to   { transform: translateY(-80px) scale(1.3); opacity: 0; }
+      to   { transform: translateY(-90px) scale(1.4); opacity: 0; }
     }
   </style>
 </head>
+
 <body>
+
   <div class="card" id="card">
-    <h1>💘 Vill du vara min Valentine?</h1>
-    <p>Välj väldigt noggrant… 😏</p>
+    <h1>💘 Hi Ida</h1>
+    <p>I would like you to be my date on Valentine’s Day.<br>Please fill in the form below 🥺👉👈</p>
+
+    <div class="cats">
+      <img src="https://placekitten.com/300/220" alt="cute cat">
+      <img src="https://placekitten.com/301/220" alt="cute cat">
+    </div>
+
+    <div class="form">
+      <label>Your name</label>
+      <div class="fake-input">Ida 💖</div>
+
+      <label>Answer</label>
+      <div class="fake-input">Will you go on a date with me?</div>
+    </div>
 
     <div class="btns">
-      <button id="yes">Ja 🥰</button>
-      <!-- "Nej" ligger absolut-positionerad, men vi placerar den nära kortet i JS -->
-      <button id="no">Nej 🙄</button>
+      <button id="yes">Yes 😍</button>
+      <button id="no">No 🙄</button>
     </div>
 
     <div id="msg"></div>
@@ -73,60 +154,52 @@
 
     function placeNoNearCard() {
       const r = card.getBoundingClientRect();
-      // placera "Nej" ungefär där den visuellt borde vara från start
-      noBtn.style.left = (r.left + r.width/2 + 70) + "px";
-      noBtn.style.top  = (r.top + r.height/2 + 20) + "px";
+      noBtn.style.left = (r.left + r.width / 2 + 70) + "px";
+      noBtn.style.top = (r.top + r.height - 60) + "px";
     }
 
-    function moveNoSomewhereElse() {
+    function moveNo() {
       const padding = 10;
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-
-      const bw = noBtn.offsetWidth;
-      const bh = noBtn.offsetHeight;
-
-      // välj en ny slump-position inom viewport
-      const x = Math.random() * (vw - bw - padding*2) + padding;
-      const y = Math.random() * (vh - bh - padding*2) + padding;
-
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding * 2) + padding;
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding * 2) + padding;
       noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
+      noBtn.style.top = y + "px";
     }
 
-    function popHeart(x, y) {
-      const h = document.createElement('div');
-      h.className = 'heart';
-      h.textContent = '💖';
-      h.style.left = (x - 8) + 'px';
-      h.style.top = (y - 8) + 'px';
+    function heartExplosion(x, y) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = "💖";
+      h.style.left = x + "px";
+      h.style.top = y + "px";
       document.body.appendChild(h);
       setTimeout(() => h.remove(), 1200);
     }
 
-    // Flytta "Nej" när man kommer nära (desktop) eller försöker trycka (mobil)
-    noBtn.addEventListener('mouseenter', (e) => moveNoSomewhereElse());
-    noBtn.addEventListener('touchstart', (e) => {
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", e => {
       e.preventDefault();
-      moveNoSomewhereElse();
+      moveNo();
     }, { passive: false });
 
-    yesBtn.addEventListener('click', (e) => {
-      msg.textContent = "Yessss!! 🥰💘 Jag bokar en dejt!";
-      // lite hjärt-explosion
-      for (let i = 0; i < 12; i++) {
-        setTimeout(() => popHeart(
-          window.innerWidth/2 + (Math.random()*120 - 60),
-          window.innerHeight/2 + (Math.random()*80 - 40)
-        ), i * 40);
-      }
-      // gör "Nej" trött och ge upp
+    yesBtn.addEventListener("click", () => {
+      msg.textContent = "YAY!! 🥰🐱💘 Best answer ever.";
       noBtn.style.display = "none";
-      yesBtn.textContent = "Ja (du valde rätt) 😄";
+      yesBtn.textContent = "Submitted ✔️";
+
+      for (let i = 0; i < 14; i++) {
+        setTimeout(() => {
+          heartExplosion(
+            window.innerWidth / 2 + (Math.random() * 120 - 60),
+            window.innerHeight / 2 + (Math.random() * 80 - 40)
+          );
+        }, i * 40);
+      }
     });
 
-    window.addEventListener('resize', placeNoNearCard);
+    window.addEventListener("resize", placeNoNearCard);
     placeNoNearCard();
   </script>
+
 </body>
 </html>
