@@ -1,135 +1,70 @@
-:root {
-  --bg1: #ffd6e0;
-  --bg2: #fff1c1;
-  --card: #ffffff;
-  --shadow: 0 25px 70px rgba(0,0,0,0.2);
-  --muted: rgba(0,0,0,0.65);
-  --yes: #22c55e;
-  --no:  #ef4444;
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-* { box-sizing: border-box; }
+html {
+  font-size: 62.5%;
+}
 
 body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(135deg, var(--bg1), var(--bg2));
-  display: grid;
-  place-items: center;
-  overflow: hidden;
+  background-color: #fff0f6;
+  font-family: "Protest Riot", sans-serif;
 }
 
-.card {
-  background: var(--card);
-  padding: 26px;
-  border-radius: 24px;
-  width: min(460px, 92vw);
-  box-shadow: var(--shadow);
-  text-align: center;
-  position: relative;
-}
+.container {
+  height: 100vh;
+  margin: 0 auto;
 
-h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
-}
-
-.subtitle {
-  margin: 0 0 16px;
-  font-size: 16px;
-  color: var(--muted);
-  line-height: 1.35;
-}
-
-.cats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.cat img {
-  width: 100%;
-  height: 150px;
-  border-radius: 14px;
-  object-fit: cover;
-  display: block;
-}
-
-.cat figcaption {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.form {
-  text-align: left;
-  font-size: 15px;
-  margin-bottom: 14px;
-}
-
-.form label {
-  font-weight: 700;
-  display: block;
-  margin-top: 10px;
-}
-
-.fake-input {
-  margin-top: 6px;
-  padding: 10px;
-  border-radius: 12px;
-  background: #f3f4f6;
-  font-size: 14px;
-}
-
-.btns {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-top: 10px;
 }
 
-button {
+.cat-img {
+  width: 30rem;
+  height: 30rem;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 3.6rem;
+  color: #f53699;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: 1rem;
+}
+
+.btn {
+  padding: 1.5rem 2.5rem;
   border: none;
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-size: 16px;
+  border-radius: 4px;
+
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease;
-  user-select: none;
+  display: inline-block;
 }
 
-button:active { transform: scale(0.98); }
-
-#yes {
-  background: var(--yes);
-  color: white;
-  transform: scale(1);
+.btn--yes {
+  background-color: #40c057;
 }
 
-#no {
-  background: var(--no);
-  color: white;
-  position: absolute; /* so we can move it anywhere */
-  transform: scale(1);
+.btn--no {
+  background-color: #f03e3e;
 }
 
-.msg {
-  margin-top: 16px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.heart {
-  position: fixed;
-  font-size: 22px;
-  pointer-events: none;
-  animation: floatUp 1.2s ease-out forwards;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(0) scale(1); opacity: 0.9; }
-  to   { transform: translateY(-90px) scale(1.4); opacity: 0; }
+.hidden {
+  display: none;
 }
