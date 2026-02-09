@@ -1,56 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ida Valentine?</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Valentine</title>
+  </head>
+  <body>
+    <main class="container">
+      <img class="cat-img" src="img/cat-0.jpg" alt="Picture of a cat" />
+      <p class="title">Will you be my Valentine?</p>
+      <div class="buttons">
+        <button type="button" class="btn btn--yes">Yes</button>
+        <button type="button" class="btn btn--no">No</button>
+      </div>
+    </main>
 
-<body>
-  <main class="card" id="card">
-    <h1>💘 Hello Ida</h1>
-    <p class="subtitle">
-      I would like you to be my date on Valentine’s Day.<br/>
-      Please fill in the form below 🥺👉👈
-    </p>
-
-    <section class="cats" aria-label="Cat gifs">
-      <figure class="cat">
-        <img
-          src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif"
-          alt="A cat coding on a computer"
-          loading="lazy"
-        />
-        <figcaption>Me building this page 😼💻</figcaption>
-      </figure>
-
-      <figure class="cat">
-        <img
-          src="https://media.giphy.com/media/l0MYyDa8S9ghzNebm/giphy.gif"
-          alt="A cute fluffy cat"
-          loading="lazy"
-        />
-        <figcaption>You being cute 🎀🐱</figcaption>
-      </figure>
-    </section>
-
-    <section class="form">
-      <label>Your name</label>
-      <div class="fake-input">Ida 💖</div>
-
-      <label>Answer</label>
-      <div class="fake-input">Will you go on a date with me?</div>
-    </section>
-
-    <section class="btns" aria-label="Answer buttons">
-      <button id="yes" type="button">Yes 😍</button>
-      <button id="no" type="button">No 🙄</button>
-    </section>
-
-    <div id="msg" class="msg" role="status" aria-live="polite"></div>
-  </main>
-
-  <script src="script.js"></script>
-</body>
+    <script type="module" src="script.js"></script>
+  </body>
 </html>
